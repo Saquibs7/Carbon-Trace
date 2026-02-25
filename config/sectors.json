@@ -1,0 +1,12 @@
+{
+  "caps_by_sector": {
+    "Steel": 500000.0,
+    "Textile": 200000.0,
+    "Electronics": 300000.0
+  },
+  "energy_multipliers": {
+    "coal": 1.2,
+    "grid": 1.0,
+    "renewable": 0.7
+  }
+}
