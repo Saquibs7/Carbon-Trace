@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Carbon-Trace Results</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="header">
+        <h1>Carbon-Trace Results</h1>
+        <p class="subtitle">
+          Session <code>{{ session_id }}</code> • Cleaned data and exploratory analysis.
+        </p>
+      </header>
+
+      <main class="card">
+        <section class="summary">
+          <h2>Pipeline Summary</h2>
+
+          <!-- display key metrics as cards for a more visual feel -->
+          <div class="plot-grid">
+            <div class="plot-card">
+              <h3>Factories audited</h3>
+              <p>{{ summary.total_factories }}</p>
+            </div>
+            <div class="plot-card">
+              <h3>Total emissions (kg CO₂)</h3>
+              <p>{{ "%.0f"|format(summary.total_emissions_all) }}</p>
+            </div>
+            <div class="plot-card">
+              <h3>Alerts triggered</h3>
+              <p>{{ summary.total_alerts }}</p>
+            </div>
+            <div class="plot-card">
+              <h3>Raw / Dirty / Cleaned rows</h3>
+              <p>{{ summary.rows_raw }} / {{ summary.rows_dirty }} / {{ summary.rows_cleaned }}</p>
+            </div>
+            <div class="plot-card">
+              <h3>Countries</h3>
+              <p>{{ summary.countries | join(', ') }}</p>
+            </div>
+            <div class="plot-card">
+              <h3>Sectors</h3>
+              <p>{{ summary.sectors | join(', ') }}</p>
+            </div>
+            <div class="plot-card">
+              <h3>Mean intensity deviation</h3>
+              <p>{{ "%.4f"|format(summary.mean_intensity_deviation) }} kg CO₂/MWh</p>
+            </div>
+          </div>
+
+          <a
+            href="{{ url_for('download', filename=cleaned_csv_path) }}"
+            class="primary-button"
+          >
+            Download Cleaned Emissions CSV
+          </a>
+
+          <p style="margin-top:1rem;">
+            <a
+              href="{{ url_for('download', filename=audit_summary_path) }}"
+              class="secondary-button"
+            >
+              Download Audit Summary (year‑to‑date totals)
+            </a>
+          </p>
+        </section>
+
+        {% if violators %}
+        <section class="violators">
+          <h2>Alerted Factories</h2>
+          <table>
+            <thead>
+              <tr><th>Factory</th><th>Total&nbsp;kg CO₂</th><th>Alerts</th></tr>
+            </thead>
+            <tbody>
+              {% for v in violators %}
+              <tr>
+                <td>{{ v.factory_id }}</td>
+                <td>{{ "%.0f"|format(v.total) }}</td>
+                <td>{{ v.alerts }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </section>
+        {% endif %}
+
+        {% if audit_preview %}
+        <section class="audit-summary">
+          <h2>Audit Summary Preview</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Factory</th>
+                <th>Sector</th>
+                <th>Total&nbsp;kg CO₂</th>
+                <th>Max&nbsp;monthly&nbsp;kg</th>
+                <th>Alerts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in audit_preview %}
+              <tr>
+                <td>{{ row.factory_id }}</td>
+                <td>{{ row.sector }}</td>
+                <td>{{ "%.0f"|format(row.total_emissions_kg) }}</td>
+                <td>{{ "%.0f"|format(row.max_monthly_emissions_kg) }}</td>
+                <td>{{ row.alerts_count }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </section>
+        {% endif %}
+
+        {% if emissions_chart %}
+        <section class="chart">
+          <h2>Cumulative Emissions Chart</h2>
+          <img style="max-width:700px;display:block;margin:auto;" src="{{ url_for('static', filename=emissions_chart) }}" alt="Emissions chart" />
+        </section>
+        {% endif %}
+
+        <section class="actions">
+          <a href="{{ url_for('index') }}" class="secondary-button">
+            Run another upload
+          </a>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Carbon-Trace • Synthetic, yet scientifically anchored emissions modeling.</span>
+      </footer>
+    </div>
+  </body>
+  </html>
+

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Carbon-Trace: Industrial Emission Auditor (SDG 13)."""
 
-import sys
 from pathlib import Path
 from src.runner import run_audit, write_summary_csv, plot_emissions
 from src.data_gen import generate_monthly_data
@@ -12,8 +11,12 @@ def main():
     # Step 1: Generate data (if missing)
     data_file = project_root / "data" / "monthly_production.csv"
     if not data_file.exists():
-        print("📊 Generating synthetic dataset...")
-        generate_monthly_data(str(data_file))
+        print("📊 Generating synthetic dataset (anchored to OWID where available)...")
+        owid_path = project_root / "owid-co2-data.csv"
+        generate_monthly_data(
+            str(data_file),
+            owid_csv_path=str(owid_path) if owid_path.exists() else None,
+        )
     
     # Step 2: Run audit
     print("🔬 Running Carbon-Trace audit...")

@@ -71,9 +71,18 @@ def write_summary_csv(factories: Dict[str, Factory], output_path: str) -> None:
     
     print(f"✅ Summary written: {output_path}")
 
-def plot_emissions(factories: Dict[str, Factory], output_path: str) -> None:
-    """Cumulative emissions line chart (top 12 factories by emissions)."""
-    plt.figure(figsize=(12, 8))
+def plot_emissions(
+    factories: Dict[str, Factory],
+    output_path: str,
+    figsize: tuple[float, float] = (8, 5),
+) -> None:
+    """Cumulative emissions line chart (top 12 factories by emissions).
+
+    The default figure size has been reduced for web display; callers can
+    override with a different ``figsize`` if needed (e.g. larger for
+    command‑line reports).
+    """
+    plt.figure(figsize=figsize)
     
     # Sort factories by total emissions, take top 12
     sorted_factories = sorted(

@@ -1,0 +1,245 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  color: #e5e7eb;
+}
+
+.layout {
+  min-height: 100vh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  text-align: left;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: #f9fafb;
+}
+
+.subtitle {
+  margin-top: 0.25rem;
+  color: #9ca3af;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 1rem;
+  padding: 1.75rem 1.5rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+}
+
+.help-text {
+  color: #9ca3af;
+  margin-bottom: 1.25rem;
+}
+
+a {
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.file-input-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px dashed rgba(148, 163, 184, 0.8);
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.file-input-label span {
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+.file-input-label input[type="file"] {
+  border: none;
+  background: transparent;
+  color: #e5e7eb;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.3rem;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
+  margin-top: 0.5rem;
+}
+
+.primary-button {
+  background: linear-gradient(to right, #22c55e, #16a34a);
+  color: #022c22;
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.45);
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(34, 197, 94, 0.55);
+}
+
+.secondary-button {
+  background: rgba(15, 23, 42, 0.8);
+  color: #e5e7eb;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.secondary-button:hover {
+  background: rgba(30, 64, 175, 0.6);
+}
+
+.steps {
+  margin-top: 2rem;
+}
+
+.steps h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.steps ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #9ca3af;
+}
+
+.steps li + li {
+  margin-top: 0.25rem;
+}
+
+.footer {
+  margin-top: auto;
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: left;
+}
+
+.flash {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flash-item {
+  background: rgba(127, 29, 29, 0.9);
+  border: 1px solid rgba(248, 113, 113, 0.8);
+  color: #fee2e2;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.violators table,
+.audit-summary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.violators th,
+.violators td,
+.audit-summary th,
+.audit-summary td {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  text-align: left;
+}
+
+.violators th,
+.audit-summary th {
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.summary ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 1rem;
+  color: #e5e7eb;
+}
+
+.summary li + li {
+  margin-top: 0.2rem;
+}
+
+.plots {
+  margin-top: 2rem;
+}
+
+.plot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.plot-card {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.plot-card h3 {
+  font-size: 0.98rem;
+  margin: 0 0 0.6rem;
+}
+
+.plot-card img {
+  width: 100%;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+.actions {
+  margin-top: 1.5rem;
+}
+
+code {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.35rem;
+  font-size: 0.9em;
+}
+
+@media (max-width: 640px) {
+  .layout {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .card {
+    padding: 1.4rem 1.1rem 1.6rem;
+  }
+
+  .header h1 {
+    font-size: 1.6rem;
+  }
+}
+

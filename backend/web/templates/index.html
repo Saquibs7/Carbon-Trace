@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Carbon-Trace Web Auditor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="header">
+        <h1>Carbon-Trace</h1>
+        <p class="subtitle">
+          Upload OWID CO₂ dataset → get factory-level emissions audit and summary dashboard.
+        </p>
+      </header>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="flash">
+        {% for message in messages %}
+        <div class="flash-item">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      <main class="card">
+        <h2>1. Upload OWID CO₂ CSV (required)</h2>
+        <p class="help-text">
+          Download the latest dataset from
+          <a href="https://github.com/owid/co2-data" target="_blank" rel="noreferrer">
+            OWID CO₂ Data
+          </a>
+          and upload <code>owid-co2-data.csv</code> here.
+        </p>
+
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+          <label class="file-input-label">
+            <span>Select OWID CSV file</span>
+            <input type="file" name="owid_csv" accept=".csv" required />
+          </label>
+
+          <h2>2. Optional factory data (for accurate results)</h2>
+          <p class="help-text">
+            If you already have monthly production/energy records for your
+            factories you can supply them instead of letting Carbon-Trace
+            synthesise them randomly. The file should contain columns such as
+            <code>factory_id,sector,month,monthly_production_tons,energy_used_mwh</code>.
+          </p>
+          <label class="file-input-label">
+            <span>Select production CSV (optional)</span>
+            <input type="file" name="production_csv" accept=".csv" />
+          </label>
+
+          <button type="submit" class="primary-button">Run Carbon-Trace Pipeline</button>
+        </form>
+
+        <section class="steps">
+          <h3>What this pipeline does</h3>
+          <ol>
+            <li>Uses real emission intensity from OWID dataset.</li>
+            <li>Localizes country-level data to 50 factories across 3 sectors.</li>
+            <li>Applies sector-specific adjustments and seasonal patterns.</li>
+            <li>Injects realistic data issues (missing, duplicates, outliers).</li>
+            <li>Cleans and validates the dataset.</li>
+            <li>Runs the closure-based Carbon-Trace auditor.</li>
+            <li>Produces a clean CSV, summary metrics, alerts, and a cumulative chart.</li>
+          </ol>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Carbon-Trace • Industrial Emission Auditor (Web)</span>
+      </footer>
+    </div>
+  </body>
+  </html>
+
